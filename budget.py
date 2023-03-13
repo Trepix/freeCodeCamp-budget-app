@@ -1,6 +1,6 @@
 class Category:
 
-    extract_width_length = 30
+    _extract_width_length = 30
 
     def __init__(self, name):
         self.name = name
@@ -35,7 +35,7 @@ class Category:
         return self._total_amount - amount >= 0
 
     def _build_header(self):
-        lateral_filling_length = int((Category.extract_width_length - len(self.name)) / 2)
+        lateral_filling_length = int((Category._extract_width_length - len(self.name)) / 2)
         filling = "*" * lateral_filling_length
         return f'{filling}{self.name}{filling}'
 
@@ -44,8 +44,9 @@ class Category:
         first_ledger_line = self.ledger[0]
         amount = f'{first_ledger_line["amount"]:.2f}'
         description = first_ledger_line["description"]
+        spaces = " " * (Category._extract_width_length - len(description) - len(amount))
         return f"""{header}
-{description}                 {amount}
+{description}{spaces}{amount}
 milk, cereal, eggs, bac -45.67
 Transfer to Entertainme -20.00
 Total: 834.33"""
