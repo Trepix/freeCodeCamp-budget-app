@@ -1,6 +1,6 @@
 class Category:
 
-    x = 0
+    extract_width_length = 30
 
     def __init__(self, name):
         self.name = name
@@ -35,15 +35,16 @@ class Category:
         return self._total_amount - amount >= 0
 
     def _build_header(self):
-        headline_length = 30
-        lateral_filling_length = int((headline_length - len(self.name)) / 2)
+        lateral_filling_length = int((Category.extract_width_length - len(self.name)) / 2)
         filling = "*" * lateral_filling_length
         return f'{filling}{self.name}{filling}'
 
     def __str__(self):
         header = self._build_header()
+        first_ledger_line = self.ledger[0]
+        amount = f'{first_ledger_line["amount"]:.2f}'
         return f"""{header}
-deposit                 900.00
+deposit                 {amount}
 milk, cereal, eggs, bac -45.67
 Transfer to Entertainme -20.00
 Total: 834.33"""
