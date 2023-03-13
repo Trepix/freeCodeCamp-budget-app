@@ -38,7 +38,6 @@ class UnitTests(unittest.TestCase):
         self.assertEqual(actual, expected, 'Expected `withdraw` method with no description to create a blank description.')
         self.assertEqual(good_withdraw, True, 'Expected `withdraw` method to return `True`.')
 
-    @unittest.skip("Disable to reduce noise")
     def test_get_balance(self):
         self.food.deposit(900, "deposit")
         self.food.withdraw(45.67, "milk, cereal, eggs, bacon, bread")
