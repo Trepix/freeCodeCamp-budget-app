@@ -34,8 +34,15 @@ class Category:
     def check_funds(self, amount):
         return self._total_amount - amount >= 0
 
+    def _build_header(self):
+        headline_length = 30
+        lateral_filling_length = int((headline_length - len(self.name)) / 2)
+        filling = "*" * lateral_filling_length
+        return f'{filling}{self.name}{filling}'
+
     def __str__(self):
-        return """*************Food*************
+        header = self._build_header()
+        return f"""{header}
 deposit                 900.00
 milk, cereal, eggs, bac -45.67
 Transfer to Entertainme -20.00
