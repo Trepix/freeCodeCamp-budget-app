@@ -43,8 +43,9 @@ class Category:
         header = self._build_header()
         first_ledger_line = self.ledger[0]
         amount = f'{first_ledger_line["amount"]:.2f}'
+        description = first_ledger_line["description"]
         return f"""{header}
-deposit                 {amount}
+{description}                 {amount}
 milk, cereal, eggs, bac -45.67
 Transfer to Entertainme -20.00
 Total: 834.33"""
