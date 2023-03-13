@@ -37,9 +37,10 @@ class Category:
     def __str__(self):
         header = self._format_header()
         lines = "\n".join(map(self._format_ledger_line, self.ledger))
+        total = f'Total: {self._total_amount:.02f}'
         return f"""{header}
 {lines}
-Total: 834.33"""
+{total}"""
 
     def _format_header(self):
         lateral_filling_length = int((Category._extract_width_length - len(self.name)) / 2)
