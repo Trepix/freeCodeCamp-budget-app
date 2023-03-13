@@ -45,7 +45,6 @@ class UnitTests(unittest.TestCase):
         expected = 854.33
         self.assertEqual(actual, expected, 'Expected balance to be 854.33')
 
-    @unittest.skip("Disable to reduce noise")
     def test_transfer(self):
         self.food.deposit(900, "deposit")
         self.food.withdraw(45.67, "milk, cereal, eggs, bacon, bread")
