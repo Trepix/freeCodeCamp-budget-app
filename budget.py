@@ -36,11 +36,11 @@ class Category:
 
     def __str__(self):
         header = self._format_header()
-        first_ledger_line = self.ledger[0]
-        line = self._format_ledger_line(first_ledger_line)
+        first_line = self._format_ledger_line(self.ledger[0])
+        second_line = self._format_ledger_line(self.ledger[1])
         return f"""{header}
-{line}
-milk, cereal, eggs, bac -45.67
+{first_line}
+{second_line}
 Transfer to Entertainme -20.00
 Total: 834.33"""
 
@@ -51,8 +51,9 @@ Total: 834.33"""
 
     @staticmethod
     def _format_ledger_line(first_ledger_line):
+        maximum_description_length = 23
         amount = f'{first_ledger_line["amount"]:.2f}'
-        description = first_ledger_line["description"]
+        description = first_ledger_line["description"][:maximum_description_length]
         spaces = " " * (Category._extract_width_length - len(description) - len(amount))
         line = description + spaces + amount
         return line
