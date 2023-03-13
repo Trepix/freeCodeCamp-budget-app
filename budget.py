@@ -36,12 +36,9 @@ class Category:
 
     def __str__(self):
         header = self._format_header()
-        first_line = self._format_ledger_line(self.ledger[0])
-        second_line = self._format_ledger_line(self.ledger[1])
+        lines = "\n".join(map(self._format_ledger_line, self.ledger))
         return f"""{header}
-{first_line}
-{second_line}
-Transfer to Entertainme -20.00
+{lines}
 Total: 834.33"""
 
     def _format_header(self):
