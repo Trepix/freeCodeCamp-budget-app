@@ -34,22 +34,30 @@ class Category:
     def check_funds(self, amount):
         return self._total_amount - amount >= 0
 
-    def _build_header(self):
+    def __str__(self):
+        header = self._format_header()
+        first_ledger_line = self.ledger[0]
+        line = self._format_ledger_line(first_ledger_line)
+        return f"""{header}
+{line}
+milk, cereal, eggs, bac -45.67
+Transfer to Entertainme -20.00
+Total: 834.33"""
+
+    def _format_header(self):
         lateral_filling_length = int((Category._extract_width_length - len(self.name)) / 2)
         filling = "*" * lateral_filling_length
         return f'{filling}{self.name}{filling}'
 
-    def __str__(self):
-        header = self._build_header()
-        first_ledger_line = self.ledger[0]
+    @staticmethod
+    def _format_ledger_line(first_ledger_line):
         amount = f'{first_ledger_line["amount"]:.2f}'
         description = first_ledger_line["description"]
         spaces = " " * (Category._extract_width_length - len(description) - len(amount))
-        return f"""{header}
-{description}{spaces}{amount}
-milk, cereal, eggs, bac -45.67
-Transfer to Entertainme -20.00
-Total: 834.33"""
+        line = description + spaces + amount
+        return line
+
+
 
 
 def create_spend_chart(categories):
