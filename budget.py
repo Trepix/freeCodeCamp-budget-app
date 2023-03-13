@@ -53,9 +53,7 @@ class Category:
         description = first_ledger_line["description"][:maximum_description_length]
         spaces = " " * (Category._extract_width_length - len(description) - len(amount))
         return description + spaces + amount
-
-
-
+    
 
 def create_spend_chart(categories):
     pass

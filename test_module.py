@@ -91,7 +91,7 @@ class UnitTests(unittest.TestCase):
         expected = f"*************Food*************\ndeposit                 900.00\nmilk, cereal, eggs, bac -45.67\nTransfer to Entertainme -20.00\nTotal: 834.33"
         self.assertEqual(actual, expected, 'Expected different string representation of object.')
 
-    @unittest.skip("Disable to reduce noise")
+
     def test_create_spend_chart(self):
         self.food.deposit(900, "deposit")
         self.entertainment.deposit(900, "deposit")
