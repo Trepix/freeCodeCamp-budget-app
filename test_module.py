@@ -76,7 +76,6 @@ class UnitTests(unittest.TestCase):
         expected = True
         self.assertEqual(actual, expected, 'Expected `check_funds` method to be True')
 
-    @unittest.skip("Disable to reduce noise")
     def test_withdraw_no_funds(self):
         self.food.deposit(100, "deposit")
         good_withdraw = self.food.withdraw(100.10)
