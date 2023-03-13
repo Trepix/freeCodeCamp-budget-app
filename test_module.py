@@ -64,7 +64,6 @@ class UnitTests(unittest.TestCase):
         expected = {"amount": transfer_amount, "description": "Transfer from Food"}
         self.assertEqual(actual, expected, 'Expected `transfer` method to create a specific ledger item in entertainment object.')
 
-    @unittest.skip("Disable to reduce noise")
     def test_check_funds(self):
         self.food.deposit(10, "deposit")
         actual = self.food.check_funds(20)
@@ -79,7 +78,6 @@ class UnitTests(unittest.TestCase):
         good_withdraw = self.food.withdraw(100.10)
         self.assertEqual(good_withdraw, False, 'Expected `withdraw` method to return `False`.')
 
-    @unittest.skip("Disable to reduce noise")
     def test_transfer_no_funds(self):
         self.food.deposit(100, "deposit")
         good_transfer = self.food.transfer(200, self.entertainment)

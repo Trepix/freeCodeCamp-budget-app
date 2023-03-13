@@ -11,7 +11,7 @@ class Category:
         self._total_amount += amount
 
     def withdraw(self, amount, description="") -> bool:
-        if self._total_amount - amount < 0:
+        if not self.check_funds(amount):
             return False
 
         self._total_amount -= amount
@@ -21,13 +21,16 @@ class Category:
     def get_balance(self):
         return self._total_amount
 
-    def transfer(self, amount, category):
-        if self._total_amount - amount < 0:
+    def transfer(self, amount, category) -> bool:
+        if not self.check_funds(amount):
             return False
 
         self.withdraw(amount, f'Transfer to {category.name}')
         category.deposit(amount, f'Transfer from {self.name}')
         return True
+
+    def check_funds(self, amount):
+        return self._total_amount - amount >= 0
 
 
 def create_spend_chart(categories):
