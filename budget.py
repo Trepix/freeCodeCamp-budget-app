@@ -49,11 +49,10 @@ class Category:
     @staticmethod
     def _format_ledger_line(first_ledger_line):
         maximum_description_length = 23
-        amount = f'{first_ledger_line["amount"]:.2f}'
         description = first_ledger_line["description"][:maximum_description_length]
-        spaces = " " * (Category._extract_width_length - len(description) - len(amount))
-        return description + spaces + amount
-    
+        amount = f'{first_ledger_line["amount"]:.2f}'.rjust(Category._extract_width_length - len(description))
+        return description + amount
+
 
 def create_spend_chart(categories):
     pass
