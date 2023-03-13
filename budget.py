@@ -36,11 +36,10 @@ class Category:
 
     def __str__(self):
         header = self._format_header()
-        lines = "\n".join(map(self._format_ledger_line, self.ledger))
+        lines = "\n".join(map(Category._format_ledger_line, self.ledger))
         total = f'Total: {self._total_amount:.02f}'
-        return f"""{header}
-{lines}
-{total}"""
+
+        return "\n".join([header, lines, total])
 
     def _format_header(self):
         lateral_filling_length = int((Category._extract_width_length - len(self.name)) / 2)
@@ -53,8 +52,7 @@ class Category:
         amount = f'{first_ledger_line["amount"]:.2f}'
         description = first_ledger_line["description"][:maximum_description_length]
         spaces = " " * (Category._extract_width_length - len(description) - len(amount))
-        line = description + spaces + amount
-        return line
+        return description + spaces + amount
 
 
 
