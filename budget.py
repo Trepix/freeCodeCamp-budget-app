@@ -68,6 +68,7 @@ def format_x_axis_labels(names):
 
 def create_spend_chart(categories):
     names = list(map(lambda c: c.name, categories))
+    x_axis_line = "    " + "-" * (3 * len(categories) + 1)
     return f"""Percentage spent by category
 100|          
  90|          
@@ -80,5 +81,5 @@ def create_spend_chart(categories):
  20|    o  o  
  10|    o  o  
   0| o  o  o  
-    ----------
+{x_axis_line}
 {format_x_axis_labels(names)}"""
