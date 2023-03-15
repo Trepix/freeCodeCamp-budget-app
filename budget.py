@@ -1,3 +1,6 @@
+from itertools import zip_longest
+
+
 class Category:
 
     _extract_width_length = 30
@@ -54,7 +57,17 @@ class Category:
         return description + amount
 
 
+def format_x_axis_labels(names):
+    result = []
+    for name in zip_longest(*names, fillvalue=' '):
+        label_line = "".join(map(lambda c: f" {c} ", name))
+        result.append(f"    {label_line} ")
+
+    return "\n".join(result)
+
+
 def create_spend_chart(categories):
+    names = list(map(lambda c: c.name, categories))
     return f"""Percentage spent by category
 100|          
  90|          
@@ -68,16 +81,4 @@ def create_spend_chart(categories):
  10|    o  o  
   0| o  o  o  
     ----------
-     B  F  E  
-     u  o  n  
-     s  o  t  
-     i  d  e  
-     n     r  
-     e     t  
-     s     a  
-     s     i  
-           n  
-           m  
-           e  
-           n  
-           t  """
+{format_x_axis_labels(names)}"""
