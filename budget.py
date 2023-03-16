@@ -61,7 +61,7 @@ class Category:
 
 
 def _part_over_10(part, total):
-    return int(ceil(part * 10 / total))
+    return int(part * 10 / total) + 1
 
 
 def _format_bar_graph(values):

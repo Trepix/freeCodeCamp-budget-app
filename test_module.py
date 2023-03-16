@@ -103,6 +103,50 @@ class UnitTests(unittest.TestCase):
         expected = "Percentage spent by category\n100|          \n 90|          \n 80|          \n 70|    o     \n 60|    o     \n 50|    o     \n 40|    o     \n 30|    o     \n 20|    o  o  \n 10|    o  o  \n  0| o  o  o  \n    ----------\n     B  F  E  \n     u  o  n  \n     s  o  t  \n     i  d  e  \n     n     r  \n     e     t  \n     s     a  \n     s     i  \n           n  \n           m  \n           e  \n           n  \n           t  "
         self.assertEqual(actual, expected, 'Expected different chart representation. Check that all spacing is exact.')
 
+    def test_wider_spend_chart(self):
+        home = budget.Category("Home")
+        trainings = budget.Category("Trainings")
+        self.food.deposit(100, "deposit")
+        self.entertainment.deposit(100, "deposit")
+        self.business.deposit(100, "deposit")
+        home.deposit(100, "deposit")
+        trainings.deposit(100, "deposit")
+
+        self.food.withdraw(10)
+        self.entertainment.withdraw(10)
+        self.business.withdraw(10)
+        home.withdraw(30)
+        trainings.withdraw(40)
+        actual = create_spend_chart([self.business, self.food, self.entertainment, home, trainings])
+        expected = f"""Percentage spent by category
+100|                
+ 90|                
+ 80|                
+ 70|                
+ 60|                
+ 50|                
+ 40|             o  
+ 30|          o  o  
+ 20|          o  o  
+ 10| o  o  o  o  o  
+  0| o  o  o  o  o  
+    ----------------
+     B  F  E  H  T  
+     u  o  n  o  r  
+     s  o  t  m  a  
+     i  d  e  e  i  
+     n     r     n  
+     e     t     i  
+     s     a     n  
+     s     i     g  
+           n     s  
+           m        
+           e        
+           n        
+           t        """
+ 
+        self.assertEqual(actual, expected, 'Expected different chart representation. Check that all spacing is exact.')
+
 
 if __name__ == "__main__":
     unittest.main()
