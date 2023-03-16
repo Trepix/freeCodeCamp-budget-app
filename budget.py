@@ -1,8 +1,8 @@
 from itertools import zip_longest
+from math import ceil
 
 
 class Category:
-
     _extract_width_length = 30
 
     def __init__(self, name):
@@ -37,6 +37,9 @@ class Category:
     def check_funds(self, amount):
         return self._total_amount - amount >= 0
 
+    def expenses(self):
+        return filter(lambda entry: entry["amount"] < 0, self.ledger)
+
     def __str__(self):
         header = self._format_header()
         lines = "\n".join(map(Category._format_ledger_line, self.ledger))
@@ -57,7 +60,22 @@ class Category:
         return description + amount
 
 
-def format_x_axis_labels(names):
+def _part_over_10(part, total):
+    return int(ceil(part * 10 / total))
+
+
+def _format_bar_graph(values):
+    y_label_width = (4 - len("|"))
+    y_labels = list(map(lambda n: f'{" " * (y_label_width - len(str(n)))}{n}|', range(0, 101, 10)))
+    graph = [y_labels] + [[" o "] * _part_over_10(value, sum(values)) for value in values]
+
+    result = []
+    for bar_line in zip_longest(*graph, fillvalue='   '):
+        result.append(f'{"".join(bar_line)} ')
+    return "\n".join(reversed(result))
+
+
+def _format_x_axis_labels(names):
     result = []
     for name in zip_longest(*names, fillvalue=' '):
         label_line = "".join(map(lambda c: f" {c} ", name))
@@ -67,19 +85,15 @@ def format_x_axis_labels(names):
 
 
 def create_spend_chart(categories):
-    names = list(map(lambda c: c.name, categories))
+    expenses = [sum(map(lambda entry: entry["amount"], category.expenses())) for category in categories]
+    bars = _format_bar_graph(expenses)
+
     x_axis_line = "    " + "-" * (3 * len(categories) + 1)
+
+    names = list(map(lambda c: c.name, categories))
+    labels = _format_x_axis_labels(names)
+
     return f"""Percentage spent by category
-100|          
- 90|          
- 80|          
- 70|    o     
- 60|    o     
- 50|    o     
- 40|    o     
- 30|    o     
- 20|    o  o  
- 10|    o  o  
-  0| o  o  o  
+{bars}
 {x_axis_line}
-{format_x_axis_labels(names)}"""
+{labels}"""
